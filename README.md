@@ -167,7 +167,7 @@ nodemon server.js
 
 ### 💬 Comments
 - **Comment 1**  
-  ![Comments 1](images/Comments_1.png)
+  ![Comments 1](images/Comment_1.png)
 
 - **Comment 2**  
   ![Comments 2](images/Comment_2.png)
