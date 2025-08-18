@@ -1,0 +1,80 @@
+<% layout('layouts/boilerplate') %>
+
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- Thread Info -->
+  <div class="bg-light p-5 rounded my-4 col-md-7 mx-auto shadow-sm border">
+    <h1 class="display-4">
+      <%= thread.thread_title %>
+    </h1>
+    <p class="lead">
+      <%= thread.thread_desc %>
+    </p>
+    <hr class="my-4">
+    <p>
+      This is a peer to peer forum. No Spam / Advertising / Self-promote in the forums. Do not post
+      copyright-infringing material. Do not post “offensive” posts, links or images. Remain respectful of other
+      members at all times.
+    </p>
+    <p>Posted By: <em><strong>
+      <%= thread.user_name %>
+      </strong></em>
+    </p>
+  </div>
+
+  <!-- Comment Form -->
+  <div class="container my-4 col-md-7 mx-auto">
+    <h1 class="py-3">Post a Comment</h1>
+    <form action="/categories/<%= id %>/threads/<%= thread.thread_id %>/comments" method="POST" novalidate class="needs-validation">
+      <div class="mb-3">
+        <label for="comment" class="form-label">Type your comment</label>
+        <textarea class="form-control" id="comment" name="comment" rows="2" required></textarea>
+        <div class="invalid-feedback">Enter a meaningful comment</div>
+      </div>
+      <button type="submit" class="btn btn-secondary"><i class="bi bi-send-fill"></i> Post Comment </button>
+    </form>
+    <hr class="border-dark">
+  </div>
+
+  <!-- No Comments Message -->
+  <% if (comments.length <=0) { %>
+  <div class="container col-md-7 bg-light p-5 mb-4 rounded shadow-sm border">
+    <h4 class="display-4">No comments found.</h4>
+    <p class="lead text-muted">Be the first person to share your thoughts.</p>
+  </div>
+
+  <!-- Comment List -->
+  <% } else { %>
+  <div class="container my-2 col-md-7">
+    <h4 class="mb-4 text-dark">
+      <i class="bi bi-chat-left-text-fill me-2"></i> Comments:
+    </h4>
+
+    <% comments.forEach(comment=> { %>
+    <div class="d-flex border p-3 rounded mb-3 bg-white shadow-sm">
+      <img src="/uploads/<%= comment.user_profile %>" alt="User Icon" height="60" width="60"
+        class="rounded-circle me-3">
+      <div class="flex-grow-1">
+        <h5 class="mb-1">
+          <%= comment.user_name %>
+        </h5>
+        <p class="mb-0">
+          <%= comment.comment_content %>
+        </p>
+      </div>
+
+      <% if (comment.comment_by===userID) { %>
+      <form
+        action="/categories/<%= id %>/threads/<%= thread.thread_id %>/comments/<%= comment.comment_id %>?_method=DELETE"
+        method="post" class="ms-3 d-flex flex-column align-items-center">
+        <button class="btn btn-outline-danger btn-sm d-flex align-items-center">
+          <i class="bi bi-trash-fill me-1"></i> Delete
+        </button>
+      </form>
+      <% } %>
+    </div>
+    <% }) %>
+  </div>
+  <% } %>
+
+</body>

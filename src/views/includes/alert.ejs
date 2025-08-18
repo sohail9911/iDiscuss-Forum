@@ -1,0 +1,19 @@
+ <% if (alerts && alerts.length > 0) { %>
+    <% alerts.forEach((alert, index) => { 
+        let iconClass = '';
+        if (alert.type === 'success') iconClass = 'bi bi-check-circle-fill text-success';
+        else if (alert.type === 'danger') iconClass = 'bi bi-x-circle-fill text-danger';
+        else if (alert.type === 'warning') iconClass = 'bi bi-exclamation-triangle-fill text-warning';
+        else iconClass = 'bi bi-info-circle-fill text-info';
+    %>
+    <div class="container col-md-7">
+        <div id="alert-<%= index %>" class="alert alert-<%= alert.type %> d-flex align-items-center alert-dismissible fade show shadow-sm rounded-3 my-3 px-4 py-3" role="alert">
+            <i class="<%= iconClass %> fs-4 me-3"></i>
+            <div class="flex-grow-1">
+                <strong class="me-1 text-capitalize"><%= alert.type %>:</strong> <%= alert.message %>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+<% }) %>
+<% } %>

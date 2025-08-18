@@ -1,0 +1,45 @@
+<% layout('layouts/boilerplate') %>
+
+<body>
+
+    <div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/img/slider1.jpg" class="d-block w-100" alt="Slide 1">
+            </div>
+            <div class="carousel-item">
+                <img src="/img/slider2.jpg" class="d-block w-100" alt="Slide 2">
+            </div>
+            <div class="carousel-item">
+                <img src="/img/slider3.jpg" class="d-block w-100" alt="Slide 3">
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselControls"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+
+    </div>         
+
+    <div class="container my-4" id="ques">
+        <h2 class="text-center mb-4">
+            <i class="bi bi-journals"></i> iDiscuss - Browse Categories
+        </h2>
+
+        <% if (categories.length> 0) { %>
+            <%- include('includes/categories', { categories }) %>
+        <% } else { %>
+            <p class="text-center text-muted fs-5">No categories found.</p>
+        <% } %>
+    </div>
+
+</body>

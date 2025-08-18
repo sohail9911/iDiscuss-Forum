@@ -1,0 +1,88 @@
+<% layout('layouts/boilerplate') %>
+
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+  <main class="container my-5 flex-grow-1">
+    <div class="col-lg-6 mx-auto d-flex flex-column gap-4">
+
+      <div class="card text-center shadow rounded-4 animate__animated animate__fadeInLeft">
+        <div class="card-body p-4">
+          <img src="/uploads/<%= userProfile || 'userdefault.png' %>" class="rounded-circle border border-3 shadow mb-3"
+            width="200" height="200" alt="Profile">
+          <h3 class="fw-bold mb-1"><%= username %></h3>
+          <p class="text-muted"><i class="bi bi-envelope-fill me-1"></i> <%= user.user_email %></p>
+        </div>
+      </div>
+
+      <div class="card shadow rounded-4 animate__animated animate__fadeInRight">
+        <div class="card-body p-4">
+
+          <% if (editMode) { %>
+          <h5 class="mb-3 text-center"><i class="bi bi-pencil-fill me-2"></i>Edit Profile</h5>
+          <form action="/profile/update" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label class="form-label">Bio</label>
+              <textarea name="bio" class="form-control" rows="2"><%= user.bio || '' %></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Birthdate</label>
+              <input type="date" name="birthdate" class="form-control" value="<%= user.birthdate || '' %>">
+            </div>
+            <div class="mb-3">
+             <label class="form-label">Gender</label>
+              <select name="gender" class="form-select">
+                <option value="" disabled selected>Select Gender</option>
+                <option value="Male" <%= user.gender === 'Male' ? 'selected' : '' %>>Male</option>
+                <option value="Female" <%= user.gender === 'Female' ? 'selected' : '' %>>Female</option>
+                <option value="Other" <%= user.gender === 'Other' ? 'selected' : '' %>>Other</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Organization</label>
+              <input type="text" name="organization" class="form-control" value="<%= user.organization || '' %>">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Role</label>
+              <input type="text" name="role" class="form-control" value="<%= user.role || '' %>">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Alternate Email</label>
+              <input type="email" name="alt_email" class="form-control" value="<%= user.alt_email || '' %>">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Mobile No</label>
+              <input type="text" name="mobile" class="form-control" value="<%= user.mobile || '' %>">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Profile Image</label>
+              <input type="file" name="profilePic" class="form-control">
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-outline-success me-2"><i class="bi bi-save2"></i> Save</button>
+              <a href="/profile" class="btn btn-outline-dark">Cancel</a>
+            </div>
+          </form>
+
+          <% } else { %>
+          <h5 class="mb-3 text-center"><i class="bi bi-person-vcard me-2"></i>Profile Details</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Bio :</strong> <%= user.bio || 'No bio added.' %></li>
+            <li class="list-group-item"><strong>Birthdate :</strong> <%= user.birthdate || 'Not provided' %></li>
+            <li class="list-group-item"><strong>Gender :</strong> <%= user.gender || 'Not provided' %></li>
+            <li class="list-group-item"><strong>Organization :</strong> <%= user.organization || 'Not provided' %></li>
+            <li class="list-group-item"><strong>Role :</strong> <%= user.role || 'Not defined' %></li>
+            <li class="list-group-item"><strong>Alternate Email :</strong> <%= user.alt_email || 'Not provided' %></li>
+            <li class="list-group-item"><strong>Mobile :</strong> <%= user.mobile || 'Not provided' %></li>
+          </ul>
+          <a href="/profile?edit=true" class="btn btn-outline-dark mt-4">
+            <i class="bi bi-pencil-fill me-1"></i> Edit Profile
+          </a>
+          <% } %>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>

@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/categories">iDiscuss</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/categories">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">Profile</a>
+        </li>
+      </ul>
+
+      <div class="mx-auto text-white d-none d-lg-flex align-items-center">
+        <img src="/uploads/<%= userProfile || 'userdefault.png' %>" alt="userImage" height="45" width="45"
+          class="rounded-circle border border-light me-2">
+        <i>
+          <%= username || 'Default User' %>
+        </i>
+      </div>
+
+      <div class="d-flex align-items-center">
+        <form class="d-flex" role="search" action="/search" method="get">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_q">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <a href="/auth/logout" class="btn btn-outline-light ms-2">Sign-Out</a>
+      </div>
+
+    </div>
+  </div>
+</nav>

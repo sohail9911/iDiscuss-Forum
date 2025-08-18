@@ -1,0 +1,89 @@
+<% layout('layouts/boilerplate') %>
+
+<body class="d-flex flex-column min-vh-100">
+
+  <% if(category) { %>
+
+  <div class="bg-light p-5 rounded my-4 col-md-7 mx-auto shadow-sm border">
+    <h1 class="display-4"> <i class="bi bi-tags-fill text-secondary" style="font-size: 2.7rem;"></i> <%= category.name %></h1>
+    <p class="lead"><%= category.description %></p>
+    <hr class="my-4">
+    <p>This is a peer to peer forum. No spam, no self-promotion, respect others, and stay on-topic.</p>
+    <a class="btn btn-outline-secondary" href="#" role="button">Learn more</a>
+  </div>
+
+  <div class="container my-4 col-md-7 mx-auto">
+    <h1 class="py-3">Start a discussion</h1>
+    <form action="/categories/<%= category.id %>" method="POST" novalidate class="needs-validation">
+      <div class="mb-3">
+        <label for="title" class="form-label">Problem Title</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+        <div class="invalid-feedback">Enter a valid title</div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Elaborate your concern</label>
+        <textarea class="form-control" id="description" name="description" rows="1" required></textarea>
+        <div class="invalid-feedback">Enter valid description</div>
+      </div>
+      <button type="submit" class="btn btn-secondary"><i class="bi bi-send-fill"></i> Submit </button>
+    </form>
+    <hr class="border-dark">
+  </div>
+
+  <div class="container col-md-7 mx-auto" id="ques">
+    
+    <% if (threads.length > 0) { %>
+      <h1 class="py-3 text-center"> <i class="bi bi-card-list"></i> Browse Threads</h1>
+      <% threads.forEach(thread => { %>
+        <div class="d-flex border border-2 p-3 rounded mb-3 bg-white shadow-sm">
+
+          <div class="d-flex flex-column align-items-center gap-2 me-5">
+            <img src="/uploads/<%= thread.user_profile %>" alt="userImage" height="60" width="60"
+              class="rounded-circle border border-2 border-white shadow mb-2">
+            <small class="text-muted">
+              <span class="badge text-bg-dark">
+                <i class="bi bi-person-fill"></i> <%= thread.user_name %>
+              </span>
+            </small>
+          </div>
+
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between align-items-start">
+              <h5 class="mb-1">
+                <a href="/categories/<%= category.id %>/threads/<%= thread.thread_id %>"
+                  class="text-dark text-decoration-none">
+                  <%= thread.thread_title %>
+                </a>
+              </h5>
+              <a href="/categories/<%= category.id %>/threads/<%= thread.thread_id %>"
+                class="btn btn-outline-secondary btn-sm mt-1 my-2">
+                <i class="bi bi-eye-fill me-1"></i> View
+              </a>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <p class="mb-0"><%= thread.thread_desc %></p>
+
+              <% if(thread.thread_user_id === userID) { %>
+                <form action="/categories/<%= category.id %>/threads/<%= thread.thread_id %>?_method=DELETE" method="post">
+                  <button class="btn btn-outline-danger btn-sm d-flex align-items-center">
+                    <i class="bi bi-trash-fill me-1"></i> Delete
+                  </button>
+                </form>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+
+    <% } else { %>
+      <div class="bg-light p-5 mb-4 rounded shadow-sm border">
+        <h4 class="display-4">No Threads found.</h4>
+        <p class="lead">Be the first person to ask a question.</p>
+      </div>
+    <% } %>
+  </div>
+
+  <% } %>
+
+</body>

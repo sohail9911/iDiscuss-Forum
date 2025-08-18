@@ -1,0 +1,52 @@
+<% layout('layouts/boilerplate') %>
+
+<body class="d-flex flex-column min-vh-100">
+
+  <main class="flex-shrink-0">
+    <div class="container my-4">
+      <h4 class="mb-3"><i class="bi bi-search me-2"></i>Search Results</h4>
+
+      <% if (threads.length===0) { %>
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i> No threads found matching your search.
+        </div>
+      <% } %>
+
+      <div class="accordion" id="searchAccordion">
+        <% threads.forEach((thread, index)=> { %>
+        <div class="accordion-item mt-3 mb-3 shadow-sm border rounded">
+          <h5 class="accordion-header" id="heading<%= index %>">
+            <button
+              class="w-100 border-0 bg-light text-start py-3 px-4 d-flex justify-content-between align-items-center"
+              type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= index %>"
+              aria-expanded="false" aria-controls="collapse<%= index %>">
+              <span class="fw-semibold text-dark">
+                <i class="bi bi-chat-right-text me-2 text-info"></i>
+                <%= thread.thread_title %>
+              </span>
+              <span class="badge rounded-pill bg-secondary">
+                #<%= thread.thread_id %>
+              </span>
+            </button>
+          </h5>
+
+          <div id="collapse<%= index %>" class="accordion-collapse collapse"
+            aria-labelledby="heading<%= index %>" data-bs-parent="#searchAccordion">
+            <div class="accordion-body">
+              <p class="mb-1">
+                <%= thread.thread_desc %>
+              </p>
+              <a href="/categories/<%= thread.thread_cat_id %>/threads/<%= thread.thread_id %>"
+                class="btn btn-outline-secondary btn-sm mt-2">
+                <i class="bi bi-arrow-right-circle"></i> View Thread
+              </a>
+            </div>
+          </div>
+
+        </div>
+        <% }); %>
+      </div>
+    </div>
+  </main>
+  
+</body>
